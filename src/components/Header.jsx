@@ -1,8 +1,8 @@
 import React from 'react';
-import { Bell, User, Settings, LogOut } from 'lucide-react';
+import { Bell, User, Settings, LogOut, Users, ShieldCheck } from 'lucide-react';
 import { tripInfo, participants } from '../data/mockData';
 
-const Header = ({ isUserMenuOpen, setIsUserMenuOpen, isOrganizer, setActiveTab }) => {
+const Header = ({ isUserMenuOpen, setIsUserMenuOpen, isOrganizer, setIsOrganizer, setActiveTab }) => {
   return (
     <header className="sticky top-0 z-50 bg-cream/90 backdrop-blur-md border-b border-gold/40 px-5 py-5">
       <div className="max-w-md mx-auto flex items-center justify-between">
@@ -31,13 +31,19 @@ const Header = ({ isUserMenuOpen, setIsUserMenuOpen, isOrganizer, setActiveTab }
                   </p>
                   <p className="text-xs font-black text-white">{tripInfo.organizer}</p>
                 </div>
-                <button className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-white hover:bg-white/10 active:bg-white/20 transition-all text-xs font-black">
-                  <User size={16} className="text-coral" /> ログイン
+                {/* Role Switcher */}
+                <button
+                  onClick={() => setIsOrganizer(!isOrganizer)}
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl transition-all text-xs font-black ${isOrganizer ? 'bg-coral/20 text-coral' : 'bg-gold/20 text-gold'}`}
+                >
+                  {isOrganizer ? <ShieldCheck size={16} /> : <Users size={16} />}
+                  {isOrganizer ? '幹事モード' : '参加者モード'}
+                  <span className="ml-auto text-[9px] text-white/40">切替 →</span>
                 </button>
+                <div className="h-px bg-gold/10 my-1 mx-2" />
                 <button className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-white hover:bg-white/10 active:bg-white/20 transition-all text-xs font-black">
                   <Settings size={16} className="text-gold" /> 設定
                 </button>
-                <div className="h-px bg-gold/10 my-1 mx-2" />
                 <button className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-coral hover:bg-coral/10 transition-all text-xs font-black">
                   <LogOut size={16} /> ログアウト
                 </button>

@@ -22,7 +22,7 @@ const phaseOrder = [
 ];
 
 const App = () => {
-  const [tripPhase, setTripPhase] = useState('room_create');
+  const [tripPhase, setTripPhase] = useState('guide_ready');
   const [activeTab, setActiveTab] = useState('home');
   const [isOrganizer, setIsOrganizer] = useState(true);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -140,6 +140,7 @@ const App = () => {
         isUserMenuOpen={isUserMenuOpen}
         setIsUserMenuOpen={setIsUserMenuOpen}
         isOrganizer={isOrganizer}
+        setIsOrganizer={setIsOrganizer}
         setActiveTab={setActiveTab}
       />
 
