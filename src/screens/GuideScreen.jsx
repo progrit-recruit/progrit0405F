@@ -50,28 +50,34 @@ const GuideScreen = () => {
         </div>
       </div>
 
-      {/* Timeline */}
-      <div className="space-y-5">
-        <h3 className="font-black text-navy text-lg flex items-center gap-2 px-1"><Sun size={22} className="text-coral" /> 行程表 - DAY 1</h3>
-        <div className="relative ml-5 pl-7 border-l-4 border-dashed border-gold">
-          {aiProposals[0].timeline.map((item, idx) => {
-            const TIcon = item.icon;
-            return (
-              <div key={idx} className="relative mb-10 last:mb-0">
-                <div className="absolute -left-[43px] top-0 w-8 h-8 bg-white border-4 border-navy rounded-2xl flex items-center justify-center text-[11px] text-navy font-black shadow-lg rotate-3">{idx + 1}</div>
-                <div className="bg-white rounded-[2rem] p-5 shadow-xl border border-gold/20">
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <p className="text-[11px] font-black text-coral tracking-widest uppercase">{item.time}</p>
-                    <TIcon size={12} className="text-navy/40" />
+      {/* Timeline by Day */}
+      {(() => {
+        const plan = aiProposals[0];
+        const days = [...new Set(plan.timeline.map(t => t.day))];
+        return days.map(dayNum => (
+          <div key={dayNum} className="space-y-5">
+            <h3 className="font-black text-navy text-lg flex items-center gap-2 px-1"><Sun size={22} className="text-coral" /> 行程表 - DAY {dayNum}</h3>
+            <div className="relative ml-5 pl-7 border-l-4 border-dashed border-gold">
+              {plan.timeline.filter(t => t.day === dayNum).map((item, idx) => {
+                const TIcon = item.icon;
+                return (
+                  <div key={idx} className="relative mb-10 last:mb-0">
+                    <div className="absolute -left-[43px] top-0 w-8 h-8 bg-white border-4 border-navy rounded-2xl flex items-center justify-center text-[11px] text-navy font-black shadow-lg rotate-3">{idx + 1}</div>
+                    <div className="bg-white rounded-[2rem] p-5 shadow-xl border border-gold/20">
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <p className="text-[11px] font-black text-coral tracking-widest uppercase">{item.time}</p>
+                        <TIcon size={12} className="text-navy/40" />
+                      </div>
+                      <p className="text-base font-black text-navy mb-1.5 leading-tight">{item.spot}</p>
+                      <p className="text-[11px] text-navy/40 font-bold leading-relaxed">{item.desc}</p>
+                    </div>
                   </div>
-                  <p className="text-base font-black text-navy mb-1.5 leading-tight">{item.spot}</p>
-                  <p className="text-[11px] text-navy/40 font-bold leading-relaxed">{item.desc}</p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+                );
+              })}
+            </div>
+          </div>
+        ));
+      })()}
 
       {/* Participants */}
       <div className="bg-white rounded-[2rem] p-5 shadow-sm border border-gold/20 space-y-4">

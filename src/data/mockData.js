@@ -1,18 +1,18 @@
 import {
   MapPin, Car, Palmtree, Bed, Train, UtensilsCrossed,
-  Waves, Mountain, Coffee
+  Waves, Mountain, Coffee, Plane, Ship
 } from 'lucide-react';
 
 export const tripInfo = {
   title: "春の卒業旅行 2026 \u{1F338}",
   organizer: "たかし",
   date: "2026年 5月10日(日) \u301C 11日(月)",
-  area: "南伊豆エリア",
+  area: "未定（AI提案）",
   memberCount: 15,
   joinedCount: 15,
-  budget: "25,000\u301C30,000円",
+  budget: "25,000\u301C35,000円",
   purpose: "卒業記念・思い出作り",
-  transport: "レンタカー",
+  transport: "未定",
   selectedPlan: {
     name: "南伊豆・オーシャンビュー満喫プラン",
     stayName: "赤沢温泉ホテル",
@@ -47,78 +47,309 @@ export const announcements = [
   { id: 2, date: "昨日", text: "しおりのベースを作成しました \u{1F4D8}", type: "normal" }
 ];
 
+// --- 15問2択 希望調査 ---
+export const wishQuestions = [
+  // 宿（場所の属性）
+  { id: 1, category: '宿', title: "宿の雰囲気は？", optionA: { key: 'building', label: 'ビル・都会' }, optionB: { key: 'wood', label: '木・自然素材' } },
+  { id: 2, category: '宿', title: "立地は？", optionA: { key: 'station', label: '駅近・便利' }, optionB: { key: 'remote', label: '辺境・秘境' } },
+  { id: 3, category: '宿', title: "スタイルは？", optionA: { key: 'modern', label: '最新・モダン' }, optionB: { key: 'traditional', label: '伝統・情緒' } },
+  { id: 4, category: '宿', title: "メインは？", optionA: { key: 'onsen', label: '温泉' }, optionB: { key: 'view', label: '景色・ロケーション' } },
+  { id: 5, category: '宿', title: "周辺は？", optionA: { key: 'lively', label: '賑やか・観光地' }, optionB: { key: 'quiet', label: '静か・離れ' } },
+  // 食事（食べ方と内容）
+  { id: 6, category: '食事', title: "メイン食材は？", optionA: { key: 'meat', label: '肉' }, optionB: { key: 'fish', label: '魚' } },
+  { id: 7, category: '食事', title: "楽しみ方は？", optionA: { key: 'sake', label: '酒・飲み歩き' }, optionB: { key: 'rice', label: '飯・白飯に合うおかず' } },
+  { id: 8, category: '食事', title: "食事の場所は？", optionA: { key: 'inhotel', label: '宿飯・おこもり' }, optionB: { key: 'outside', label: '外食・街へ繰り出す' } },
+  { id: 9, category: '食事', title: "食べ方は？", optionA: { key: 'bbq', label: '自分たちでBBQ' }, optionB: { key: 'served', label: '給仕・座って運ばれる' } },
+  { id: 10, category: '食事', title: "グレードは？", optionA: { key: 'bclass', label: 'B級・ソウルフード' }, optionB: { key: 'luxury', label: '贅沢・高級コース' } },
+  // レジャー（体験の性質）
+  { id: 11, category: 'レジャー', title: "フィールドは？", optionA: { key: 'sea', label: '海・港町' }, optionB: { key: 'mountain', label: '山・高原' } },
+  { id: 12, category: 'レジャー', title: "過ごし方は？", optionA: { key: 'active', label: 'アクティブ' }, optionB: { key: 'relax', label: 'リラックス' } },
+  { id: 13, category: 'レジャー', title: "景観は？", optionA: { key: 'nature', label: '自然・ありのまま' }, optionB: { key: 'artificial', label: '人工・街並み' } },
+  { id: 14, category: 'レジャー', title: "体験は？", optionA: { key: 'panorama', label: '景色・パノラマ' }, optionB: { key: 'appreciate', label: '鑑賞・じっくり' } },
+  { id: 15, category: 'レジャー', title: "時間帯は？", optionA: { key: 'nightowl', label: '夜更かし・バー' }, optionB: { key: 'earlybird', label: '早起き・朝市場' } },
+];
+
+// --- 10プラン ---
 export const aiProposals = [
   {
-    id: 'A',
-    name: "南伊豆・オーシャンビュー満喫プラン",
-    stay: "赤沢温泉ホテル",
-    match: "95%",
+    id: '1',
+    name: "熱海・伊東「五感を研ぎ澄ます絶景・名建築・金目鯛」",
+    stay: "老舗温泉旅館",
+    days: '1泊2日',
     cost: "28,000円",
-    costBreakdown: { stay: "18,000円", transport: "4,000円", food: "4,000円", activity: "2,000円" },
-    aiReason: "アンケート結果から「海」「BBQ」「温泉」の人気が高く、予算内で全て叶えられるプランです。移動時間も適度で、アクティビティと癒しのバランスが取れています。",
-    concerns: ["GW直後のため混雑の可能性あり", "天候次第で海アクティビティ変更の可能性"],
-    matchPoints: ["海希望 75%に対応", "BBQ希望 85%に対応", "予算帯にぴったり"],
+    tags: ['traditional', 'onsen', 'fish', 'served', 'relax', 'sea', 'panorama', 'station'],
+    costBreakdown: { stay: "18,000円", transport: "3,000円", food: "5,000円", activity: "2,000円" },
+    aiReason: "伝統×温泉×魚×給仕×リラックスの組み合わせ。金目鯛の煮付けと名建築、絶景吊橋で五感を刺激。",
+    concerns: ["GW直後のため混雑の可能性", "アクティブ派には物足りないかも"],
+    matchPoints: ["伝統・温泉重視に対応", "海の幸を堪能", "リラックス派向け"],
     timeline: [
-      { time: "09:00", spot: "品川駅 集合", desc: "港南口の広場に集合！", icon: MapPin },
-      { time: "11:30", spot: "伊豆高原駅 着", desc: "レンタカー移動", icon: Car },
-      { time: "12:30", spot: "海鮮ランチ", desc: "地元の海鮮丼", icon: UtensilsCrossed },
-      { time: "15:00", spot: "城ヶ崎海岸", desc: "絶景の吊り橋", icon: Palmtree },
-      { time: "17:30", spot: "ホテルチェックイン", desc: "温泉タイム", icon: Bed },
-      { time: "19:00", spot: "BBQディナー", desc: "海を眺めながらBBQ", icon: UtensilsCrossed }
+      { day: 1, time: "10:30", spot: "三島スカイウォーク", desc: "日本最長の吊橋から富士山を仰ぐ", icon: Palmtree },
+      { day: 1, time: "12:30", spot: "沼津港", desc: "深海魚定食・海鮮丼ランチ", icon: UtensilsCrossed },
+      { day: 1, time: "14:30", spot: "来宮神社", desc: "樹齢2100年の大楠でパワーチャージ", icon: Mountain },
+      { day: 1, time: "16:00", spot: "老舗旅館チェックイン", desc: "豪華なお湯を堪能", icon: Bed },
+      { day: 1, time: "18:30", spot: "大宴会場", desc: "金目鯛の煮付けと本格和食膳", icon: UtensilsCrossed },
+      { day: 2, time: "09:30", spot: "MOA美術館", desc: "世界最大級の円形ホールでアート鑑賞", icon: MapPin },
+      { day: 2, time: "12:00", spot: "網代の海沿いレストラン", desc: "浜焼きまたは刺身膳", icon: UtensilsCrossed },
+      { day: 2, time: "14:00", spot: "城ヶ崎海岸", desc: "断崖絶壁の吊橋散策", icon: Palmtree },
+      { day: 2, time: "16:00", spot: "小田原鈴廣", desc: "かまぼこ博物館見学・買い出し→解散", icon: MapPin },
     ]
   },
   {
-    id: 'B',
-    name: "修善寺・チル旅 & 陶芸体験プラン",
-    stay: "宙 SORA 渡月荘金龍",
-    match: "80%",
-    cost: "32,000円",
-    costBreakdown: { stay: "22,000円", transport: "3,000円", food: "4,000円", activity: "3,000円" },
-    aiReason: "「ゆったり過ごしたい」派の意見を反映し、温泉街散策と陶芸体験を組み合わせた文化体験型プラン。宿のグレードが高く満足度重視。",
-    concerns: ["予算が若干オーバー", "アクティブ派には物足りない可能性"],
-    matchPoints: ["ゆったり派 25%に対応", "温泉重視の声に対応", "文化体験の要望あり"],
+    id: '2',
+    name: "那須高原「空中散歩と1000頭の動物、肉三昧の狂騒」",
+    stay: "大型コテージ",
+    days: '1泊2日',
+    cost: "25,000円",
+    tags: ['wood', 'remote', 'meat', 'bbq', 'active', 'mountain', 'nature', 'nightowl'],
+    costBreakdown: { stay: "12,000円", transport: "4,000円", food: "6,000円", activity: "3,000円" },
+    aiReason: "木×肉×BBQ×アクティブ×山。空中アスレチックで汗を流し、夜はキャンプファイヤーとBBQで大盛り上がり。",
+    concerns: ["天候リスク（屋外メイン）", "虫が苦手な人は注意"],
+    matchPoints: ["アクティブ派向け", "BBQ・肉三昧", "自然の中でワイルドに"],
     timeline: [
-      { time: "10:00", spot: "三島駅 集合", desc: "踊り子号で修善寺へ", icon: Train },
-      { time: "11:00", spot: "修善寺駅 着", desc: "温泉街ランチ", icon: UtensilsCrossed },
-      { time: "13:00", spot: "陶芸体験", desc: "思い出の器づくり", icon: Coffee },
-      { time: "16:00", spot: "竹林散策", desc: "修善寺の名所を巡る", icon: Palmtree },
-      { time: "17:30", spot: "旅館チェックイン", desc: "露天風呂で癒し", icon: Bed }
+      { day: 1, time: "10:30", spot: "那須ハイランドパーク/NOZARU", desc: "日本最大級の空中アスレチック", icon: Mountain },
+      { day: 1, time: "13:00", spot: "チーズガーデン那須本店", desc: "木の温もり空間で肉サンドイッチランチ", icon: UtensilsCrossed },
+      { day: 1, time: "15:00", spot: "大型コテージ", desc: "食材運び込み・火起こし", icon: Bed },
+      { day: 1, time: "17:00", spot: "40人同時BBQ", desc: "信州牛・栃木産ポークを自分たちで焼く", icon: UtensilsCrossed },
+      { day: 1, time: "20:00", spot: "キャンプファイヤー", desc: "酒と音楽で夜更かし", icon: Coffee },
+      { day: 2, time: "09:00", spot: "那須ロープウェイ", desc: "茶臼岳の噴煙を間近に短距離登山", icon: Mountain },
+      { day: 2, time: "11:30", spot: "那須どうぶつ王国", desc: "ド迫力のバードパフォーマンス鑑賞", icon: Palmtree },
+      { day: 2, time: "13:30", spot: "園内レストラン", desc: "BBQグリル料理ランチ", icon: UtensilsCrossed },
+      { day: 2, time: "15:30", spot: "那須ステンドグラス美術館", desc: "美術鑑賞→解散", icon: MapPin },
     ]
-  }
+  },
+  {
+    id: '3',
+    name: "東京・湾岸「没入型アートと空の展望、最新グルメハシゴ」",
+    stay: "最新ホテル",
+    days: '1泊2日',
+    cost: "32,000円",
+    tags: ['building', 'station', 'modern', 'lively', 'sake', 'outside', 'artificial', 'nightowl'],
+    costBreakdown: { stay: "15,000円", transport: "2,000円", food: "10,000円", activity: "5,000円" },
+    aiReason: "最新×ビル×酒×外食×人工×夜更かし。スカイツリー・teamLab・屋形船の贅沢都会旅。",
+    concerns: ["予算が若干高め", "移動が多い"],
+    matchPoints: ["都会派・最新体験好き向け", "夜更かし・飲み歩き派", "アートと食のハシゴ"],
+    timeline: [
+      { day: 1, time: "11:00", spot: "東京スカイツリー", desc: "地上450mから東京のビル群を一望", icon: MapPin },
+      { day: 1, time: "13:00", spot: "浅草", desc: "老舗店ですき焼き＆下町ランチ", icon: UtensilsCrossed },
+      { day: 1, time: "15:00", spot: "すみだ水族館", desc: "クラゲの幻想的な空間を鑑賞", icon: Waves },
+      { day: 1, time: "18:30", spot: "貸切大型屋形船", desc: "東京湾夜景×揚げたて天ぷら×酒", icon: Ship },
+      { day: 1, time: "21:30", spot: "最新ホテル", desc: "バー・ナイトスポットで夜更かし", icon: Bed },
+      { day: 2, time: "10:00", spot: "teamLab Planets", desc: "裸足で水に入る最新アート体験", icon: MapPin },
+      { day: 2, time: "12:30", spot: "豊洲 千客万来", desc: "江戸の街並みでB級グルメ食べ歩き", icon: UtensilsCrossed },
+      { day: 2, time: "15:00", spot: "日本科学未来館", desc: "最新テクノロジー鑑賞", icon: MapPin },
+      { day: 2, time: "17:00", spot: "お台場海浜公園", desc: "レインボーブリッジ夕暮れ→解散", icon: Palmtree },
+    ]
+  },
+  {
+    id: '4',
+    name: "函館「100万ドルの夜景と市場の熱気、赤レンガ歴史」",
+    stay: "函館市内ホテル",
+    days: '1泊2日',
+    cost: "35,000円",
+    tags: ['sea', 'panorama', 'fish', 'bclass', 'earlybird', 'traditional', 'nature'],
+    costBreakdown: { stay: "12,000円", transport: "15,000円", food: "5,000円", activity: "3,000円" },
+    aiReason: "海×景色×魚×B級×早起き。100万ドルの夜景、朝市のイカ釣り、赤レンガの歴史を満喫。",
+    concerns: ["移動コストが高い（航空券）", "天候で夜景が見えない可能性"],
+    matchPoints: ["絶景重視", "海の幸・B級グルメ", "朝型派の朝市体験"],
+    timeline: [
+      { day: 1, time: "11:00", spot: "五稜郭タワー", desc: "星形の歴史的建造物を上空から鑑賞", icon: MapPin },
+      { day: 1, time: "12:30", spot: "ラッキーピエロ", desc: "B級グルメ王道チャイニーズチキンバーガー", icon: UtensilsCrossed },
+      { day: 1, time: "14:30", spot: "元町・八幡坂", desc: "海へと続く美しい景色を歩く", icon: Palmtree },
+      { day: 1, time: "17:00", spot: "函館山", desc: "夕暮れから夜景へ変わる瞬間", icon: Mountain },
+      { day: 1, time: "19:00", spot: "大型割烹", desc: "獲れたての魚尽くしの宴会", icon: UtensilsCrossed },
+      { day: 2, time: "07:00", spot: "函館朝市", desc: "活イカ釣り体験→その場で食べる", icon: Waves },
+      { day: 2, time: "10:00", spot: "金森赤レンガ倉庫", desc: "歴史ある建築を鑑賞しながら買い物", icon: MapPin },
+      { day: 2, time: "12:00", spot: "あじさい本店", desc: "黄金色の塩ラーメンランチ", icon: UtensilsCrossed },
+      { day: 2, time: "14:00", spot: "トラピスチヌ修道院", desc: "静寂な歴史空間を散策→空港解散", icon: MapPin },
+    ]
+  },
+  {
+    id: '5',
+    name: "阿蘇「地球の脈動・巨大噴火口とパワースポット」解毒旅",
+    stay: "辺境の温泉宿",
+    days: '1泊2日',
+    cost: "30,000円",
+    tags: ['remote', 'onsen', 'meat', 'served', 'nature', 'mountain', 'quiet', 'panorama'],
+    costBreakdown: { stay: "15,000円", transport: "8,000円", food: "5,000円", activity: "2,000円" },
+    aiReason: "辺境×温泉×肉×給仕×自然。阿蘇の雄大な自然と噴火口のパワーで心身をリセット。",
+    concerns: ["火山活動で火口見学が制限される場合あり", "アクセスがやや不便"],
+    matchPoints: ["大自然で非日常体験", "温泉×肉の最強コンボ", "静かに過ごしたい派"],
+    timeline: [
+      { day: 1, time: "11:00", spot: "大観峰", desc: "阿蘇五岳を景色として仰ぐ", icon: Mountain },
+      { day: 1, time: "13:00", spot: "内牧温泉", desc: "あか牛丼を団体予約ランチ", icon: UtensilsCrossed },
+      { day: 1, time: "15:00", spot: "阿蘇神社", desc: "再建された楼門を鑑賞・参道散策", icon: MapPin },
+      { day: 1, time: "16:30", spot: "辺境の温泉宿", desc: "草原を見ながらお湯に浸かる", icon: Bed },
+      { day: 1, time: "18:30", spot: "宿の大宴会", desc: "阿蘇の恵みを給仕で楽しむ", icon: UtensilsCrossed },
+      { day: 2, time: "09:00", spot: "阿蘇中岳第一火口", desc: "煙を吹く自然のエネルギーを体感", icon: Mountain },
+      { day: 2, time: "11:00", spot: "草千里ヶ浜", desc: "広大な草原を散策・乗馬体験", icon: Palmtree },
+      { day: 2, time: "13:00", spot: "阿蘇ファームランド", desc: "地元野菜の健康ビュッフェ", icon: UtensilsCrossed },
+      { day: 2, time: "15:00", spot: "白川水源", desc: "名水を鑑賞→熊本駅解散", icon: Waves },
+    ]
+  },
+  {
+    id: '6',
+    name: "金沢「加賀百万石の美学と路地裏ハシゴ酒の狂騒」",
+    stay: "金沢市内ホテル",
+    days: '1泊2日',
+    cost: "30,000円",
+    tags: ['traditional', 'sake', 'outside', 'bclass', 'nightowl', 'appreciate', 'lively'],
+    costBreakdown: { stay: "12,000円", transport: "10,000円", food: "5,000円", activity: "3,000円" },
+    aiReason: "伝統×酒×外食×B級×夜更かし。兼六園と21世紀美術館の文化、夜は片町のハシゴ酒。",
+    concerns: ["金沢までの移動時間が長い", "飲み過ぎ注意"],
+    matchPoints: ["伝統文化を深く鑑賞", "夜更かし・酒好き向け", "B級グルメ充実"],
+    timeline: [
+      { day: 1, time: "11:00", spot: "近江町市場", desc: "市場の熱気を鑑賞・魚ランチ自由行動", icon: UtensilsCrossed },
+      { day: 1, time: "13:30", spot: "兼六園", desc: "日本三名園を案内人付きで鑑賞", icon: Palmtree },
+      { day: 1, time: "15:30", spot: "金箔貼り体験", desc: "自分の手で黄金の作品を作る", icon: MapPin },
+      { day: 1, time: "18:30", spot: "片町エリア居酒屋", desc: "金沢おでんと地酒の宴会", icon: UtensilsCrossed },
+      { day: 1, time: "21:00", spot: "茶屋街・路地裏バー", desc: "夜の金沢で夜更かし", icon: Coffee },
+      { day: 2, time: "09:30", spot: "21世紀美術館", desc: "世界的な現代アートを鑑賞", icon: MapPin },
+      { day: 2, time: "12:00", spot: "老舗洋食店", desc: "ハントンライスランチ", icon: UtensilsCrossed },
+      { day: 2, time: "14:00", spot: "ひがし茶屋街", desc: "伝統的な街並み散策・金箔ソフト", icon: MapPin },
+      { day: 2, time: "16:00", spot: "ヤマト醤油味噌", desc: "発酵文化を学ぶ→解散", icon: MapPin },
+    ]
+  },
+  {
+    id: '7',
+    name: "大阪「笑いと通天閣、超高層ビル展望台のコテコテ」",
+    stay: "ビル型ラグジュアリーホテル",
+    days: '1泊2日',
+    cost: "28,000円",
+    tags: ['building', 'modern', 'lively', 'rice', 'inhotel', 'artificial', 'meat', 'bclass'],
+    costBreakdown: { stay: "15,000円", transport: "8,000円", food: "3,000円", activity: "2,000円" },
+    aiReason: "最新×賑やか×飯×宿飯×人工。吉本新喜劇で爆笑、たこ焼き・串カツのB級三昧、夜景ビュッフェ。",
+    concerns: ["移動が多い", "USJ行きたい勢と分裂する可能性"],
+    matchPoints: ["エンタメ・賑やか好き", "B級グルメ天国", "ホテルビュッフェで贅沢"],
+    timeline: [
+      { day: 1, time: "11:30", spot: "道頓堀", desc: "たこ焼き・お好み焼きランチ", icon: UtensilsCrossed },
+      { day: 1, time: "13:30", spot: "なんばグランド花月", desc: "本場の吉本新喜劇で大爆笑", icon: MapPin },
+      { day: 1, time: "16:30", spot: "ラグジュアリーホテル", desc: "チェックイン", icon: Bed },
+      { day: 1, time: "18:30", spot: "ホテルレストラン", desc: "世界の料理が並ぶビュッフェ", icon: UtensilsCrossed },
+      { day: 1, time: "21:00", spot: "最上階ラウンジ", desc: "大阪夜景を鑑賞", icon: Coffee },
+      { day: 2, time: "09:30", spot: "あべのハルカス300", desc: "日本屈指の高さから大阪平野一望", icon: MapPin },
+      { day: 2, time: "12:00", spot: "新世界", desc: "通天閣の下で串カツ豪快ランチ", icon: UtensilsCrossed },
+      { day: 2, time: "14:00", spot: "海遊館", desc: "ジンベエザメの遊泳を鑑賞", icon: Waves },
+      { day: 2, time: "16:30", spot: "天保山マーケットプレース", desc: "買い物→新大阪駅解散", icon: MapPin },
+    ]
+  },
+  {
+    id: '8',
+    name: "沖縄・名護「青のラグジュアリー・リゾート」停滞旅",
+    stay: "オーシャンリゾート",
+    days: '2泊3日',
+    cost: "50,000円",
+    tags: ['sea', 'panorama', 'luxury', 'modern', 'relax', 'view'],
+    costBreakdown: { stay: "25,000円", transport: "18,000円", food: "5,000円", activity: "2,000円" },
+    aiReason: "海×景色×贅沢×最新×リラックス。青い海と空に包まれるラグジュアリーリゾートで完全脱力。",
+    concerns: ["予算が高い（航空券含む）", "3日間必要"],
+    matchPoints: ["究極のリラックス体験", "海好き・リゾート好き", "贅沢したい派"],
+    timeline: [
+      { day: 1, time: "12:00", spot: "那覇空港着", desc: "大型バスで名護リゾートへ", icon: Plane },
+      { day: 1, time: "15:00", spot: "リゾートチェックイン", desc: "プールサイドでウェルカムドリンク", icon: Bed },
+      { day: 1, time: "18:00", spot: "テラスディナー", desc: "海風を感じながらビュッフェ", icon: UtensilsCrossed },
+      { day: 2, time: "09:00", spot: "海アクティビティ", desc: "シュノーケリング・バナナボート", icon: Waves },
+      { day: 2, time: "13:00", spot: "プールサイドランチ", desc: "ひたすらリラックス", icon: UtensilsCrossed },
+      { day: 2, time: "18:00", spot: "ホテル内レストラン", desc: "格式高い給仕ディナー", icon: UtensilsCrossed },
+      { day: 3, time: "09:30", spot: "美ら海水族館", desc: "巨大水槽を鑑賞", icon: Waves },
+      { day: 3, time: "13:00", spot: "国際通り", desc: "B級グルメ・お土産", icon: UtensilsCrossed },
+      { day: 3, time: "16:00", spot: "那覇空港", desc: "解散", icon: Plane },
+    ]
+  },
+  {
+    id: '9',
+    name: "白馬・北アルプス「連峰を仰ぐキャンプ＆マウンテン」",
+    stay: "大型ロッジ",
+    days: '2泊3日',
+    cost: "30,000円",
+    tags: ['mountain', 'wood', 'remote', 'bbq', 'active', 'nature', 'earlybird'],
+    costBreakdown: { stay: "12,000円", transport: "8,000円", food: "6,000円", activity: "4,000円" },
+    aiReason: "山×木×辺境×BBQ×アクティブ。北アルプスの絶景トレッキングと焚き火・BBQの3日間。",
+    concerns: ["天候リスクが高い", "体力が必要"],
+    matchPoints: ["アウトドア好き全振り", "山×BBQの王道", "早起きで絶景を堪能"],
+    timeline: [
+      { day: 1, time: "12:00", spot: "白馬大型ロッジ着", desc: "チェックイン・荷物整理", icon: Bed },
+      { day: 1, time: "14:00", spot: "白馬ジャンプ競技場", desc: "五輪の舞台を見学", icon: MapPin },
+      { day: 1, time: "17:00", spot: "ロッジ前庭", desc: "焚き火を熾して夜の静寂を楽しむ", icon: Coffee },
+      { day: 2, time: "07:00", spot: "八方尾根", desc: "終日トレッキング", icon: Mountain },
+      { day: 2, time: "12:00", spot: "絶景ポイント", desc: "お弁当ランチ", icon: UtensilsCrossed },
+      { day: 2, time: "17:00", spot: "ロッジ", desc: "巨大BBQコンロで肉を焼く", icon: UtensilsCrossed },
+      { day: 3, time: "06:00", spot: "早起き散歩", desc: "山の朝景色を鑑賞", icon: Mountain },
+      { day: 3, time: "09:00", spot: "山麓の温泉", desc: "体を癒やす", icon: Bed },
+      { day: 3, time: "12:00", spot: "白馬駅", desc: "解散", icon: Train },
+    ]
+  },
+  {
+    id: '10',
+    name: "松山・道後温泉からしまなみ海道「瀬戸内の凪」巡り",
+    stay: "道後温泉旅館 → 今治サイクリング施設",
+    days: '2泊3日',
+    cost: "35,000円",
+    tags: ['traditional', 'onsen', 'fish', 'sake', 'nature', 'sea', 'relax'],
+    costBreakdown: { stay: "18,000円", transport: "10,000円", food: "5,000円", activity: "2,000円" },
+    aiReason: "伝統×温泉×魚×酒×自然。道後温泉の歴史とし まなみ海道の瀬戸内絶景を3日間で巡る。",
+    concerns: ["移動距離が長い", "3日間必要"],
+    matchPoints: ["温泉文化を深く味わう", "瀬戸内の魚と地酒", "自然と歴史の融合"],
+    timeline: [
+      { day: 1, time: "13:00", spot: "松山空港/駅着", desc: "道後温泉旅館へ", icon: Plane },
+      { day: 1, time: "15:00", spot: "道後温泉本館", desc: "歴史ある温泉を体験", icon: Bed },
+      { day: 1, time: "18:00", spot: "旅館大宴会", desc: "魚と地酒の宴会", icon: UtensilsCrossed },
+      { day: 2, time: "09:00", spot: "しまなみ海道へ", desc: "バスで移動", icon: Car },
+      { day: 2, time: "12:00", spot: "途中の島", desc: "海鮮B級グルメランチ", icon: UtensilsCrossed },
+      { day: 2, time: "15:00", spot: "今治サイクリング施設", desc: "チェックイン", icon: Bed },
+      { day: 3, time: "08:00", spot: "しまなみ海道の橋", desc: "瀬戸内海の自然×人工の融合を景色として", icon: Palmtree },
+      { day: 3, time: "11:00", spot: "タオル美術館", desc: "今治タオルの文化を鑑賞", icon: MapPin },
+      { day: 3, time: "14:00", spot: "松山空港", desc: "解散", icon: Plane },
+    ]
+  },
 ];
 
-export const wishQuestions = [
-  { id: 1, type: 'image', title: "どっちの気分？", options: [{ key: 'sea', label: '開放的な海！', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600' }, { key: 'mountain', label: '癒やしの山！', img: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=600' }] },
-  { id: 2, type: 'image', title: "夕食スタイル", options: [{ key: 'bbq', label: 'みんなでBBQ', img: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=600' }, { key: 'indoor', label: 'お店でゆっくり', img: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600' }] },
-  { id: 3, type: 'image', title: "過ごし方", options: [{ key: 'active', label: '遊び尽くす！', img: 'https://images.unsplash.com/photo-1533692328991-08159ff19fca?q=80&w=600' }, { key: 'chill', label: 'ゆったり', img: 'https://images.unsplash.com/photo-1526491109672-7474bd61c41f?q=80&w=600' }] },
-  { id: 4, type: 'slider', title: "予算感はどのくらい？", min: 15000, max: 40000, step: 5000, unit: "円", defaultValue: 25000 },
-  { id: 5, type: 'multi', title: "やりたいこと（複数OK）", options: [{ key: 'onsen', label: '温泉' }, { key: 'bbq', label: 'BBQ' }, { key: 'beach', label: '海遊び' }, { key: 'hiking', label: 'ハイキング' }, { key: 'craft', label: '体験・クラフト' }, { key: 'photo', label: '写真映えスポット' }] },
-  { id: 6, type: 'text', title: "その他、希望やリクエストがあれば！", placeholder: "例: カラオケしたい！夜は花火したい！" },
-];
+// 希望調査の集計結果（モック：15問の多数派結果）
+export const wishSurveyResults = {
+  building: 4, wood: 11,
+  station: 6, remote: 9,
+  modern: 7, traditional: 8,
+  onsen: 10, view: 5,
+  lively: 5, quiet: 10,
+  meat: 9, fish: 6,
+  sake: 8, rice: 7,
+  inhotel: 6, outside: 9,
+  bbq: 11, served: 4,
+  bclass: 10, luxury: 5,
+  sea: 8, mountain: 7,
+  active: 9, relax: 6,
+  nature: 10, artificial: 5,
+  panorama: 7, appreciate: 8,
+  nightowl: 6, earlybird: 9,
+};
 
-export const wishStats = [
-  { id: 1, title: "気分", options: [{ label: "海", p: 75, icon: Waves }, { label: "山", p: 25, icon: Mountain }] },
-  { id: 2, title: "夕食", options: [{ label: "BBQ", p: 85, icon: UtensilsCrossed }, { label: "屋内", p: 15, icon: Coffee }] },
-];
+// 多数派のキーリスト（マッチング計算用）
+export const getMajorityKeys = (results) => {
+  const pairs = [
+    ['building', 'wood'], ['station', 'remote'], ['modern', 'traditional'],
+    ['onsen', 'view'], ['lively', 'quiet'], ['meat', 'fish'],
+    ['sake', 'rice'], ['inhotel', 'outside'], ['bbq', 'served'],
+    ['bclass', 'luxury'], ['sea', 'mountain'], ['active', 'relax'],
+    ['nature', 'artificial'], ['panorama', 'appreciate'], ['nightowl', 'earlybird'],
+  ];
+  return pairs.map(([a, b]) => (results[a] || 0) >= (results[b] || 0) ? a : b);
+};
+
+export const wishStats = wishQuestions.map(q => ({
+  id: q.id,
+  category: q.category,
+  title: q.title,
+  optionA: { label: q.optionA.label, count: wishSurveyResults[q.optionA.key] || 0 },
+  optionB: { label: q.optionB.label, count: wishSurveyResults[q.optionB.key] || 0 },
+}));
 
 export const surveyAggregation = {
   responseCount: 12,
   totalCount: 15,
-  budgetAvg: 27000,
-  budgetRange: "20,000\u301C35,000円",
-  topActivities: [
-    { label: "温泉", count: 11 },
-    { label: "BBQ", count: 10 },
-    { label: "海遊び", count: 8 },
-    { label: "写真映え", count: 6 },
-    { label: "ハイキング", count: 4 },
-    { label: "体験", count: 3 },
-  ],
-  aiSummary: "全体的に「海 + BBQ + 温泉」の組み合わせが圧倒的人気。予算は平均27,000円で、アクティブ派が多数。車を出せる人は3名確認済み。"
+  aiSummary: "全体的に「自然・温泉・BBQ・アクティブ」の組み合わせが人気。山派がやや多く、B級グルメ志向。早起き派が多数で朝の体験重視。"
 };
 
 export const fixedConditionsDefault = {
-  area: "南伊豆",
+  area: "未定（AI提案）",
   amenities: ["温泉", "BBQ", "カラオケ"],
   transport: "レンタカー",
   budgetMin: 20000,
@@ -127,14 +358,12 @@ export const fixedConditionsDefault = {
   notes: "大部屋あり、花火可"
 };
 
-export const aiGeneratedQuestions = [
-  { id: 1, type: "image", text: "海 vs 山、どっちの気分？", editable: true },
-  { id: 2, type: "image", text: "夕食はBBQ vs お店ディナー？", editable: true },
-  { id: 3, type: "image", text: "アクティブ派 vs ゆったり派？", editable: true },
-  { id: 4, type: "slider", text: "予算感はどのくらい？（15,000〜40,000円）", editable: true },
-  { id: 5, type: "multi", text: "やりたいアクティビティを選んでください（複数OK）", editable: true },
-  { id: 6, type: "text", text: "その他、希望やリクエストがあれば自由に書いてください", editable: true },
-];
+export const aiGeneratedQuestions = wishQuestions.map((q, i) => ({
+  id: q.id,
+  type: "binary",
+  text: `${q.optionA.label} vs ${q.optionB.label}`,
+  editable: true,
+}));
 
 export const heatmapDataCounts = { 11: 15, 12: 15, 4: 12, 5: 14, 18: 10 };
 

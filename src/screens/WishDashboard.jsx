@@ -1,9 +1,12 @@
 import React from 'react';
-import { ShieldCheck, Sparkles, Bell, ArrowRight, Users } from 'lucide-react';
-import { surveyAggregation, participants } from '../data/mockData';
+import { ShieldCheck, Sparkles, Bell, ArrowRight, Users, Home, UtensilsCrossed, Compass } from 'lucide-react';
+import { surveyAggregation, participants, wishStats } from '../data/mockData';
+
+const categoryIcons = { '宿': Home, '食事': UtensilsCrossed, 'レジャー': Compass };
 
 const WishDashboard = ({ onComplete }) => {
   const unanswered = participants.filter(p => !p.wishAnswered);
+  const categories = ['宿', '食事', 'レジャー'];
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -11,7 +14,7 @@ const WishDashboard = ({ onComplete }) => {
         <ShieldCheck className="text-gold shrink-0" size={32} />
         <div>
           <p className="text-[10px] font-black text-gold tracking-[0.2em] uppercase mb-1 italic underline">Organizer Dashboard</p>
-          <p className="text-[11px] text-white/70 leading-relaxed font-bold">回答の集計状況を確認できます。</p>
+          <p className="text-[11px] text-white/70 leading-relaxed font-bold">15問の回答集計状況を確認できます。</p>
         </div>
       </div>
 
@@ -27,29 +30,39 @@ const WishDashboard = ({ onComplete }) => {
         </div>
       </div>
 
-      {/* Activity Ranking */}
-      <div className="bg-white rounded-[2rem] p-5 shadow-sm border border-gold/20 space-y-4">
-        <h4 className="text-xs font-black text-navy flex items-center gap-2"><Sparkles size={16} className="text-gold" /> アクティビティ人気ランキング</h4>
-        {surveyAggregation.topActivities.map((act, idx) => (
-          <div key={idx} className="flex items-center gap-3">
-            <span className={`w-6 h-6 rounded-lg flex items-center justify-center text-[10px] font-black ${idx === 0 ? 'bg-coral text-white' : idx === 1 ? 'bg-gold text-navy' : 'bg-navy/10 text-navy/40'}`}>{idx + 1}</span>
-            <span className="text-sm font-bold text-navy flex-1">{act.label}</span>
-            <div className="flex items-center gap-2">
-              <div className="w-20 h-2 bg-navy/5 rounded-full overflow-hidden">
-                <div className="h-full bg-coral rounded-full" style={{ width: `${(act.count / surveyAggregation.totalCount) * 100}%` }}></div>
-              </div>
-              <span className="text-[10px] font-black text-navy/40">{act.count}票</span>
-            </div>
+      {/* Results by Category */}
+      {categories.map(cat => {
+        const CatIcon = categoryIcons[cat];
+        return (
+          <div key={cat} className="bg-white rounded-[2rem] p-5 shadow-sm border border-gold/20 space-y-4">
+            <h4 className="text-xs font-black text-navy flex items-center gap-2">
+              <CatIcon size={16} className="text-coral" /> {cat}
+            </h4>
+            {wishStats.filter(s => s.category === cat).map(s => {
+              const total = s.optionA.count + s.optionB.count;
+              const pA = total > 0 ? Math.round((s.optionA.count / total) * 100) : 50;
+              const pB = 100 - pA;
+              const winner = pA >= pB ? 'A' : 'B';
+              return (
+                <div key={s.id} className="space-y-1.5">
+                  <div className="flex justify-between items-center">
+                    <p className="text-[10px] font-black text-navy/50">{s.title}</p>
+                    <span className="text-[9px] font-black text-emerald-600">{winner === 'A' ? s.optionA.label : s.optionB.label} 優勢</span>
+                  </div>
+                  <div className="h-8 bg-navy/5 rounded-xl overflow-hidden flex shadow-inner">
+                    <div style={{ width: `${pA}%` }} className="bg-coral flex items-center justify-center text-white text-[9px] font-black px-1 overflow-hidden whitespace-nowrap">
+                      {pA > 25 && `${s.optionA.label} ${pA}%`}
+                    </div>
+                    <div style={{ width: `${pB}%` }} className="bg-gold flex items-center justify-center text-navy text-[9px] font-black px-1 overflow-hidden whitespace-nowrap">
+                      {pB > 25 && `${s.optionB.label} ${pB}%`}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-        ))}
-      </div>
-
-      {/* Budget */}
-      <div className="bg-white rounded-[2rem] p-5 shadow-sm border border-gold/20 space-y-2">
-        <h4 className="text-xs font-black text-navy">予算傾向</h4>
-        <p className="text-2xl font-black text-coral">平均 {surveyAggregation.budgetAvg.toLocaleString()}円</p>
-        <p className="text-[10px] font-black text-navy/40">レンジ: {surveyAggregation.budgetRange}</p>
-      </div>
+        );
+      })}
 
       {/* AI Summary */}
       <div className="bg-coral/5 rounded-[2rem] p-5 border border-coral/20 space-y-2">
