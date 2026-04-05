@@ -138,28 +138,31 @@ const WishScreen = ({ onComplete }) => {
         <h3 className="font-black text-2xl text-center text-navy flex-1">{q.title}</h3>
       </div>
 
-      {/* Binary Choice */}
-      <div className="grid grid-cols-2 gap-4 min-h-[200px]">
-        {[q.optionA, q.optionB].map((opt, idx) => {
+      {/* Binary Choice with Images */}
+      <div className="grid grid-cols-2 gap-3 h-[45vh] min-h-[300px]">
+        {[q.optionA, q.optionB].map((opt) => {
           const isSelected = answers[q.id] === opt.key;
           return (
-            <button
+            <div
               key={opt.key}
               onClick={() => handleSelect(q.id, opt.key)}
-              className={`relative rounded-[2.5rem] p-6 flex flex-col items-center justify-center gap-4 transition-all duration-300 shadow-xl active:scale-[0.96] border-4 min-h-[180px] ${
-                isSelected
-                  ? 'border-coral bg-coral/10 scale-[1.02]'
-                  : 'border-transparent bg-white opacity-90 hover:opacity-100'
+              className={`relative rounded-[2.5rem] overflow-hidden border-4 active:scale-[0.96] transition-all duration-300 shadow-xl cursor-pointer ${
+                isSelected ? 'border-coral scale-[1.02]' : 'border-transparent opacity-90'
               }`}
             >
-              <span className={`text-5xl`}>{idx === 0 ? 'A' : 'B'}</span>
-              <span className="text-base font-black text-navy leading-tight text-center">{opt.label}</span>
+              <img src={opt.img} className="w-full h-full object-cover" alt={opt.label} />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent" />
+              <div className="absolute bottom-6 left-0 right-0 text-center text-white text-sm font-black px-2 drop-shadow-lg leading-tight uppercase tracking-wider">
+                {opt.label}
+              </div>
               {isSelected && (
-                <div className="absolute top-3 right-3 w-8 h-8 bg-coral rounded-full flex items-center justify-center shadow-lg animate-zoom-in">
-                  <Check size={18} className="text-white" strokeWidth={4} />
+                <div className="absolute inset-0 bg-coral/10 flex items-center justify-center animate-zoom-in">
+                  <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-2xl">
+                    <Check size={32} className="text-coral" strokeWidth={5} />
+                  </div>
                 </div>
               )}
-            </button>
+            </div>
           );
         })}
       </div>
