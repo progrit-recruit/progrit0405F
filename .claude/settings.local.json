@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(/usr/local/bin/npm install:*)",
+      "Bash(/opt/homebrew/bin/npm install:*)",
+      "Read(//opt/homebrew/bin/**)",
+      "Read(//Users/progrit7/.nvm/versions/**)",
+      "Read(//Users/progrit7/**)",
+      "Bash(command -v node)",
+      "Bash(export PATH=$PATH:/opt/homebrew/bin:/usr/local/bin:/usr/bin)",
+      "Read(//usr/**)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(ls /usr/local/bin/npm /opt/homebrew/bin/npm ~/.nvm/versions/node/*/bin/npm /Users/progrit7/.nvm/versions/node/*/bin/npm)",
+      "Bash(env)",
+      "Bash(/bin/zsh -i -c \"which npm\")",
+      "Bash(/bin/zsh -l -c \"which npm\")",
+      "Bash(/bin/bash -l -c \"which npm\")",
+      "Bash(/bin/zsh -l -c \"which node; which npm; echo $PATH\")",
+      "Bash(/bin/zsh -l -c \"which brew\")"
+    ]
+  }
+}
