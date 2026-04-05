@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShieldCheck, MapPin, Car, Train, Sparkles, ArrowRight } from 'lucide-react';
+import { ShieldCheck, MapPin, Car, Train, Sparkles, ArrowRight, Users, Minus, Plus } from 'lucide-react';
 import { fixedConditionsDefault } from '../data/mockData';
 
 const amenityOptions = [
@@ -26,6 +26,35 @@ const ConditionsScreen = ({ onComplete }) => {
       </div>
 
       <div className="bg-white rounded-[2rem] p-5 shadow-sm border border-gold/20 space-y-5">
+        {/* 人数選択 */}
+        <div>
+          <span className="text-[10px] font-black text-navy/40 uppercase tracking-widest flex items-center gap-1.5"><Users size={12} className="text-coral" /> 参加人数</span>
+          <div className="flex items-center justify-center gap-5 mt-3">
+            <button onClick={() => setConditions({...conditions, memberCount: Math.max(2, (conditions.memberCount || 15) - 1)})}
+              className="w-12 h-12 bg-cream rounded-2xl flex items-center justify-center border border-gold/30 active:scale-90 transition-all">
+              <Minus size={20} className="text-navy" />
+            </button>
+            <div className="text-center">
+              <span className="text-5xl font-black text-coral">{conditions.memberCount || 15}</span>
+              <p className="text-[10px] font-black text-navy/40 mt-0.5">人</p>
+            </div>
+            <button onClick={() => setConditions({...conditions, memberCount: Math.min(50, (conditions.memberCount || 15) + 1)})}
+              className="w-12 h-12 bg-cream rounded-2xl flex items-center justify-center border border-gold/30 active:scale-90 transition-all">
+              <Plus size={20} className="text-navy" />
+            </button>
+          </div>
+          <div className="flex flex-wrap justify-center gap-1.5 mt-3">
+            {[5, 10, 15, 20, 30, 40].map(n => (
+              <button key={n} onClick={() => setConditions({...conditions, memberCount: n})}
+                className={`px-3 py-1.5 rounded-lg text-[10px] font-black transition-all ${(conditions.memberCount || 15) === n ? 'bg-coral text-white shadow-md' : 'bg-cream text-navy/40 border border-gold/30'}`}>
+                {n}人
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="h-px bg-gold/20" />
+
         <label className="block">
           <span className="text-[10px] font-black text-navy/40 uppercase tracking-widest flex items-center gap-1.5"><MapPin size={12} className="text-coral" /> エリア</span>
           <input value={conditions.area} onChange={e => setConditions({...conditions, area: e.target.value})} className="w-full mt-2 font-black text-navy bg-cream/50 rounded-xl px-4 py-3 border border-gold/30 focus:border-coral focus:outline-none" />

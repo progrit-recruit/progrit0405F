@@ -379,6 +379,7 @@ export const surveyAggregation = {
 };
 
 export const fixedConditionsDefault = {
+  memberCount: 15,
   area: "未定（AI提案）",
   amenities: ["温泉", "BBQ", "カラオケ"],
   transport: "レンタカー",
