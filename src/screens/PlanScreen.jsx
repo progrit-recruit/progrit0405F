@@ -15,7 +15,9 @@ const PlanScreen = ({ isOrganizer, planPhase, setPlanPhase, setTripPhase }) => {
   const majorityKeys = getMajorityKeys(wishSurveyResults);
   const getMatchRate = (plan) => {
     const matchCount = plan.tags.filter(tag => majorityKeys.includes(tag)).length;
-    return Math.round((matchCount / majorityKeys.length) * 100);
+    // プランのタグ数に対する一致率（タグが全部一致すれば95%、ベース40%）
+    const rawRate = plan.tags.length > 0 ? matchCount / plan.tags.length : 0;
+    return Math.round(40 + rawRate * 55);
   };
 
   const sortedProposals = [...aiProposals].sort((a, b) => getMatchRate(b) - getMatchRate(a));
